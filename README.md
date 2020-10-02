@@ -42,7 +42,7 @@ Model is based on a dataset of around 6000 images of 60 celebrities (100 each).
 ## Model predictions in python
 - Provide paths to `celeb_mapping.json` and `celeb_index.ann` files in `celeb_recognition.py` file. If you want to try my model, ignore this step.
 - Run `celeb_recognition.py` file, provide path to image in the file.
-- Output includes a list of the indentified faces, bounding boxes and the predicted celeb name (unknown if not found).
+- Output includes a list of the identified faces, bounding boxes and the predicted celeb name (unknown if not found).
 - It also displays the output with bounding boxes.
 
 ## Sample image output
@@ -52,3 +52,5 @@ Model is based on a dataset of around 6000 images of 60 celebrities (100 each).
 You can run a binder application by clicking the following link:
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/shobhit9618/celeb_recognition/main)
+
+You can also launch a voila binder application (which only has widgets for image upload and celeb prediction) by clicking [here](https://mybinder.org/v2/gh/shobhit9618/celeb_recognition/main?urlpath=%2Fvoila%2Frender%2Fceleb_recognition.ipynb).
