@@ -1,0 +1,12 @@
+annoy==1.17.0
+mtcnn==0.1.0
+tensorflow==2.3.1
+keras==2.4.3
+keras-vggface==0.6
+keras_applications==1.0.8
+imutils==0.5.3
+voila==0.2.3
+ipywidgets==7.5.1
+opencv-python==4.4.0.44
+matplotlib==3.3.2
+numpy==1.18.5
