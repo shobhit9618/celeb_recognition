@@ -47,7 +47,7 @@ Model is based on a dataset of around 6000 images of 60 celebrities (100 each).
 - It also displays the output with bounding boxes.
 
 ## Sample image output
-![Image](celeb_utils/sample_images/sample_output_obama.png)
+![Image](celeb_utils/sample_images/sample_output_multi.png)
 
 ## Binder
 You can run a binder application by clicking the following link:
