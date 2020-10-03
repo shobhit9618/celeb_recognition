@@ -68,7 +68,6 @@ for folder in os.listdir(base_url):
 		if encoding is not None:
 			celeb_encoding[c] = encoding[0]
 			celeb_mapping[folder].append(c)
-			print(c)
 			ann_index.add_item(c, encoding[0])
 	save_json(celeb_mapping)
 	pickle.dump(celeb_encoding, open(f"celeb_encodings/{folder}_encoding.pkl", "wb" ))
