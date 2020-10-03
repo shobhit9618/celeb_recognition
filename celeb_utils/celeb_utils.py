@@ -79,22 +79,22 @@ def get_celeb_prediction(img):
 	encs, bbox = get_encoding_new(img)
 	data = []
 	for index, enc in enumerate(encs):
-	cv2.rectangle(img, bbox[index], (255,0,0), 2)
-	temp_data = {}
-	temp_data["bbox"] = bbox[index]
-	results = ann_index.get_nns_by_vector(enc[0], 10, search_k=-1, include_distances=True)
-	dist_threshold = 0.9
-	celeb_count_dict = get_celeb_name_from_id(results, dist_threshold)
-	distance = results[1][0]
-	if len(celeb_count_dict)!=0 and max(celeb_count_dict.values()) > 3:
-		celeb_name = max(celeb_count_dict, key=celeb_count_dict.get)
-		cv2.putText(img, celeb_name.upper(), (bbox[index][0]-5, bbox[index][1] - 5), cv2.FONT_HERSHEY_DUPLEX, 1, (0,0,255), 1)
-		temp_data["celeb_name"] = celeb_name
-		temp_data["confidence"] = face_distance_to_conf(distance)
-	else:
-		temp_data["celeb_name"] = "unknown"
-		temp_data["confidence"] = 0.0
-	data.append(temp_data)
+		cv2.rectangle(img, bbox[index], (255,0,0), 2)
+		temp_data = {}
+		temp_data["bbox"] = bbox[index]
+		results = ann_index.get_nns_by_vector(enc[0], 10, search_k=-1, include_distances=True)
+		dist_threshold = 0.9
+		celeb_count_dict = get_celeb_name_from_id(results, dist_threshold)
+		distance = results[1][0]
+		if len(celeb_count_dict)!=0 and max(celeb_count_dict.values()) > 3:
+			celeb_name = max(celeb_count_dict, key=celeb_count_dict.get)
+			cv2.putText(img, celeb_name.upper(), (bbox[index][0]-5, bbox[index][1] - 5), cv2.FONT_HERSHEY_DUPLEX, 1, (0,0,255), 1)
+			temp_data["celeb_name"] = celeb_name
+			temp_data["confidence"] = face_distance_to_conf(distance)
+		else:
+			temp_data["celeb_name"] = "unknown"
+			temp_data["confidence"] = 0.0
+		data.append(temp_data)
 	img = imutils.resize(img, width=400)
 	display(img)
 	return data, img

@@ -4,3 +4,4 @@
 *.pkl
 celeb_utils/__pycache__/
 *.json
+__pycache__/
