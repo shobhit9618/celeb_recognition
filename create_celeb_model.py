@@ -1,3 +1,6 @@
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
+import tensorflow as tf
 from keras_vggface.vggface import VGGFace
 from keras_vggface.utils import preprocess_input
 from mtcnn.mtcnn import MTCNN
@@ -6,7 +9,6 @@ from PIL import Image
 from matplotlib import pyplot
 from numpy import asarray
 import numpy as np
-import os
 from os import listdir
 import pickle
 import json
@@ -44,15 +46,17 @@ ann_index = AnnoyIndex(2048, 'angular')
 
 os.makedirs('celeb_encodings', exist_ok=True)
 
-celeb_encoding = {}
 celeb_mapping = {}
 c = 0
 def save_json(celeb_mapping):
 	with open("celeb_mapping.json", "w") as outfile:  
 		json.dump(celeb_mapping, outfile) 
 
+#provide path to images directory here (refer README for directory structure)
+base_url = 'provide name of celeb images dir'
+
 print("Starting loop")
-for folder in os.listdir('name of folder dir'):
+for folder in os.listdir(base_url):
 	celeb_encoding = {}
 	celeb_mapping[folder] = []
 	print(f"folder {folder}")
@@ -62,9 +66,10 @@ for folder in os.listdir('name of folder dir'):
 			print(str(c))
 		encoding = get_encoding(base_url + '/' + folder + '/' + image, face_detector, encoder_model)
 		if encoding is not None:
-			celeb_encoding[c] = encoding
+			celeb_encoding[c] = encoding[0]
 			celeb_mapping[folder].append(c)
-			ann_index.add_item(c, encoding)
+			print(c)
+			ann_index.add_item(c, encoding[0])
 	save_json(celeb_mapping)
 	pickle.dump(celeb_encoding, open(f"celeb_encodings/{folder}_encoding.pkl", "wb" ))
 	del celeb_encoding
