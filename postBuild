@@ -1,3 +1,3 @@
 #!/bin/bash
 
-python download_files.py
+python -c "from keras_vggface.vggface import VGGFace; encoder_model = VGGFace(model='resnet50', include_top=False, input_shape=(224, 224, 3), pooling='avg')"
