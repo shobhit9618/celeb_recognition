@@ -96,5 +96,5 @@ def get_celeb_prediction(img):
 			temp_data["confidence"] = 0.0
 		data.append(temp_data)
 	img = imutils.resize(img, width=400)
-	display(img)
+	# display(img)
 	return data, img
