@@ -1,5 +1,4 @@
 .ipynb_checkpoints
-*.jpg
 *.ann
 *.pkl
 celeb_utils/__pycache__/

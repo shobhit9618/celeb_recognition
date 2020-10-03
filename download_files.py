@@ -1,6 +1,5 @@
 import os
 import requests
-from keras_vggface.vggface import VGGFace
 
 def download_file_from_google_drive(id, destination):
     URL = "https://docs.google.com/uc?export=download"
@@ -32,11 +31,22 @@ def save_response_content(response, destination):
                 f.write(chunk)
 
 celeb_mapping_file_id = '1wDaaSQ6NjxLkxpzYyTRknefizZUKnKDj'
-celeb_mapping_destination = '{}/celeb_mapping.json'.format(os.getcwd())
-download_file_from_google_drive(celeb_mapping_file_id, celeb_mapping_destination)
+celeb_mapping_destination = 'celeb_mapping.json'
+if not os.path.exists(celeb_mapping_destination):
+    download_file_from_google_drive(celeb_mapping_file_id, celeb_mapping_destination)
 
 celeb_ann_id = '1-3Wb7fiINbrk9FSagTxjLdSjp7KzrMp7'
-celeb_ann_destination = '{}/celeb_index_60.ann'.format(os.getcwd())
-download_file_from_google_drive(celeb_ann_id, celeb_ann_destination)
+celeb_ann_destination = 'celeb_index_60.ann'
+if not os.path.exists(celeb_ann_destination):
+    download_file_from_google_drive(celeb_ann_id, celeb_ann_destination)
 
-encoder_model = VGGFace(model='resnet50', include_top=False, input_shape=(224, 224, 3), pooling='avg')
+path0 = "~/.keras"
+os.makedirs(path0, exist_ok=True)
+path1 = "~/.keras/models"
+os.makedirs(path1, exist_ok=True)
+path2 = "~/.keras/models/vggface"
+os.makedirs(path2, exist_ok=True)
+
+vggface_model_path = ".keras/models/vggface/rcmalli_vggface_tf_notop_resnet50.h5"
+if not os.path.exists(vggface_model_path):
+    os.system("wget https://github.com/rcmalli/keras-vggface/releases/download/v2.0/rcmalli_vggface_tf_notop_resnet50.h5 -O {}".format(vggface_model_path))
