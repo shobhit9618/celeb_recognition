@@ -20,4 +20,3 @@ img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 im_pil = Image.fromarray(img)
 display(im_pil)
 print(pred)
-
