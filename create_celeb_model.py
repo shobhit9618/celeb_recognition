@@ -13,8 +13,9 @@ from os import listdir
 import pickle
 import json
 from annoy import AnnoyIndex
+from tqdm import tqdm
 
-def get_encoding(img_path, face_detector, encoder_model):
+def get_encoding(img_path):
 	img = pyplot.imread(img_path)
 	results = face_detector.detect_faces(img)
 	if len(results)>0:
@@ -44,34 +45,41 @@ face_detector = MTCNN()
 encoder_model = VGGFace(model='resnet50', include_top=False, input_shape=(224, 224, 3), pooling='avg')
 ann_index = AnnoyIndex(2048, 'angular')
 
-os.makedirs('celeb_encodings', exist_ok=True)
-
-celeb_mapping = {}
-c = 0
 def save_json(celeb_mapping):
 	with open("celeb_mapping.json", "w") as outfile:  
 		json.dump(celeb_mapping, outfile) 
 
-#provide path to images directory here (refer README for directory structure)
-base_url = 'provide name of celeb images dir'
+os.makedirs('celeb_encodings', exist_ok=True)
 
-print("Starting loop")
+celeb_mapping = {}
+c = 0
+
+#provide path to images directory here (refer README for directory structure)
+base_url = 'celeb_images'
+
+print("Starting face detection and encoding creation")
 for folder in os.listdir(base_url):
 	celeb_encoding = {}
 	celeb_mapping[folder] = []
 	print(f"folder {folder}")
-	for image in listdir(base_url + '/' + folder):
-		c += 1
-		if c%100==0:
-			print(str(c))
-		encoding = get_encoding(base_url + '/' + folder + '/' + image, face_detector, encoder_model)
+	for image in tqdm(listdir(base_url + '/' + folder)):
+		try:
+			encoding = get_encoding(os.path.join(base_url, folder, image))
+		except Exception as e:
+			print(e)
+			continue
+
 		if encoding is not None:
+			c += 1
 			celeb_encoding[c] = encoding[0]
 			celeb_mapping[folder].append(c)
 			ann_index.add_item(c, encoding[0])
 	save_json(celeb_mapping)
 	pickle.dump(celeb_encoding, open(f"celeb_encodings/{folder}_encoding.pkl", "wb" ))
 	del celeb_encoding
+
+save_json(celeb_mapping)
+print("Encoding and mapping files saved successfully")
 
 print("Building ann index...")
 ann_index.build(1000)

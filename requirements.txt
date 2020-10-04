@@ -10,3 +10,4 @@ ipywidgets==7.5.1
 opencv-python==4.4.0.44
 matplotlib==3.3.2
 numpy==1.18.5
+tqdm
