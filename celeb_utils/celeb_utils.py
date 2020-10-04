@@ -1,4 +1,5 @@
 import os
+from os.path import expanduser
 import matplotlib.pyplot as plt
 import json
 import math
@@ -16,12 +17,14 @@ import io
 import matplotlib.pyplot as plt
 import imutils
 
+home = expanduser("~")
+
 face_detector = MTCNN()
 encoder_model = VGGFace(model='resnet50', include_top=False, input_shape=(224, 224, 3), pooling='avg')
 ann_index = AnnoyIndex(2048, 'angular')
-_ = ann_index.load("../celeb_index_60.ann")
+_ = ann_index.load(os.path.join(home,'celeb_index_60.ann'))
 
-with open('../celeb_mapping.json') as json_file:
+with open(os.path.join(home,'celeb_mapping.json')) as json_file:
 	celeb_mapping_1_temp = json.load(json_file)
 celeb_mapping_1 = {}
 for key, value_list in celeb_mapping_1_temp.items():
