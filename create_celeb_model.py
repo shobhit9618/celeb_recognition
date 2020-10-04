@@ -61,7 +61,6 @@ print("Starting face detection and encoding creation")
 for folder in os.listdir(base_url):
 	celeb_encoding = {}
 	celeb_mapping[folder] = []
-	print(f"folder {folder}")
 	for image in tqdm(listdir(base_url + '/' + folder)):
 		try:
 			encoding = get_encoding(os.path.join(base_url, folder, image))
