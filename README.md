@@ -41,7 +41,7 @@ Model is based on a dataset of around 6000 images of 60 celebrities (100 each).
     celeb_detector.celeb_recognition(img_path, ann_path, celeb_map)
     ```
 
-- For creating your own model (refer [this](##Create-your-own-celeb-model) for guide on creating directory structure) and use as follows:
+- For creating your own model (refer [this](#create-your-own-celeb-model) for guide on creating directory structure) and use as follows:
     ```python
     import celeb_detector
     folder_path = 'celeb_images'
