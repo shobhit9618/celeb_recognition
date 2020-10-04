@@ -13,6 +13,41 @@ Model is based on a dataset of around 6000 images of 60 celebrities (100 each).
 ## Installing dependencies
 - Run `pip install -r requirements.py` to install all the dependencies (preferably in a virtual environment).
 
+## PyPI package
+### Installation
+- To install pip package, run:
+    ```bash
+    pip install -i https://test.pypi.org/simple/ celeb-detector
+    ```
+- This will install most of the dependencies, except keras-vggface, keras-applications and annoy. To install these, run `pip install keras-vggface==0.6 keras-applications annoy`.
+- To ensure you have all the required additional packages, you can also run `pip install -r requirements.py`.
+
+### Using pip pakcage
+- For using my model for predictions, use the following lines of code after installation:
+    ```python
+    import celeb_recognition
+    img_path = 'sample_image.jpg'
+    celeb_recognition.celeb_recognition(img_path)
+    ```
+
+- For using you own custom model, also provide path to json and ann files as shown below:
+    ```python
+    import celeb_recognition
+    img_path = 'sample_image.jpg'
+    ann_path = 'sample_index.ann'
+    celeb_map = 'sample_mapping.json'
+    celeb_recognition.celeb_recognition(img_path, ann_path, celeb_map)
+    ```
+
+- For creating your own model, use as follows:
+    ```python
+    import celeb_recognition
+    folder_path = 'sample_folder'
+    celeb_recognition.create_celeb_model(folder_path)
+    ```
+
+- NOTE: pip package is unstable as of now, it is recommended to use python files from the repo for creating your model and making predictions. Details for the same are provided below.
+
 ## Create your own celeb model
 - Create a dataset of celebs in the following directory structure:
     ```bash
