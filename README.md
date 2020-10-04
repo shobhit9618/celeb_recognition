@@ -1,4 +1,4 @@
-# Celebrity Recognition
+# Celebrity Recognition [![PyPI version](https://badge.fury.io/py/celeb-detector.svg)](https://badge.fury.io/py/celeb-detector)
 Model to recognize celebrities using a face matching algorithm.
 
 Model is based on a dataset of around 6000 images of 60 celebrities (100 each).
@@ -32,7 +32,7 @@ Model is based on a dataset of around 6000 images of 60 celebrities (100 each).
     celeb_detector.celeb_recognition(img_path)
     ```
 
-- For using you own custom model, also provide path to json and ann files as shown below:
+- For using your own custom model, also provide path to json and ann files as shown below:
     ```python
     import celeb_detector
     img_path = 'sample_image.jpg'
@@ -41,10 +41,10 @@ Model is based on a dataset of around 6000 images of 60 celebrities (100 each).
     celeb_detector.celeb_recognition(img_path, ann_path, celeb_map)
     ```
 
-- For creating your own model, use as follows:
+- For creating your own model (refer [this](##Create-your-own-celeb-model) for guide on creating directory structure) and use as follows:
     ```python
     import celeb_detector
-    folder_path = 'sample_folder'
+    folder_path = 'celeb_images'
     celeb_detector.create_celeb_model(folder_path)
     ```
 
