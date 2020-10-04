@@ -19,7 +19,7 @@ Model is based on a dataset of around 6000 images of 60 celebrities (100 each).
 - To install pip package, run:
     ```bash
     # pip release version
-    pip3 install --user celeb-detector==0.0.14
+    pip3 install celeb-detector
     # Directly from repo
     pip3 install git+https://github.com/shobhit9618/celeb_recognition.git
     ```
