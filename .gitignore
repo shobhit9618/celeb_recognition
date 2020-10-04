@@ -4,3 +4,6 @@
 celeb_utils/__pycache__/
 *.json
 __pycache__/
+build/
+*.egg-info/
+dist/
