@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="celeb_detector",
-    version="0.0.7",
+    version="0.0.13",
     author="Shobhit Gupta",
     author_email="shobhit9618@gmail.com",
     description="Model to recognize celebrities using a face matching algorithm",

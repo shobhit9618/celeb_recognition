@@ -22,7 +22,7 @@ encoder_model = VGGFace(model='resnet50', include_top=False, input_shape=(224, 2
 # _ = ann_index.load("celeb_index_60.ann")
 
 def celeb_mapping(celeb_mapping_path):
-	with open('celeb_mapping.json') as json_file:
+	with open(celeb_mapping_path) as json_file:
 		celeb_mapping_1_temp = json.load(json_file)
 	celeb_mapping_1 = {}
 	for key, value_list in celeb_mapping_1_temp.items():
