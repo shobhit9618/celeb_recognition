@@ -26,7 +26,7 @@ def celeb_recognition(image_path, ann_filepath=celeb_ann_destination, celeb_mapp
 	from celeb_detector.celeb_utils import get_celeb_prediction
 	pred, img = get_celeb_prediction(img, ann_filepath, celeb_mapping_path)
 	os.makedirs('celeb_output', exist_ok=True)
-	out_im_path = 'celeb_images/image_output.jpg'
+	out_im_path = 'celeb_output/image_output.jpg'
 	cv2.imwrite(out_im_path, img)
 	print("Output image saved at {}".format(out_im_path))
 

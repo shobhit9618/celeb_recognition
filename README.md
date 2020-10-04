@@ -18,7 +18,7 @@ Model is based on a dataset of around 6000 images of 60 celebrities (100 each).
 - To ensure you have all the required additional packages, run `pip install -r requirements.py` first.
 - To install pip package, run:
     ```bash
-    pip3 install --user -i https://test.pypi.org/simple/ celeb-detector
+    pip3 install --user -i https://test.pypi.org/simple/ celeb-detector==0.0.14
     ```
 
 ### Using pip pakcage
