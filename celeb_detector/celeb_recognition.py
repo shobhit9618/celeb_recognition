@@ -1,8 +1,6 @@
 import os
 from os.path import expanduser
-from PIL import Image
 import cv2
-from IPython.display import display
 from celeb_detector.download_gdrive import download_file_from_google_drive
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
 import tensorflow as tf
@@ -11,15 +9,19 @@ home = expanduser("~")
 celeb_ann_destination = os.path.join(home,'celeb_index_60.ann')
 celeb_mapping_destination = os.path.join(home,'celeb_mapping.json')
 # provide path to image for prediction
-def celeb_recognition(image_path, ann_filepath=celeb_ann_destination, celeb_mapping_path = celeb_mapping_destination):
+def celeb_recognition(image_path, ann_filepath=None, celeb_mapping_path = None):
 	
-	celeb_mapping_file_id = '1wDaaSQ6NjxLkxpzYyTRknefizZUKnKDj'
-	if not os.path.exists(celeb_mapping_destination):
-		download_file_from_google_drive(celeb_mapping_file_id, celeb_mapping_destination)
+	if celeb_mapping_path is None:
+		celeb_mapping_path = celeb_mapping_destination
+		celeb_mapping_file_id = '1wDaaSQ6NjxLkxpzYyTRknefizZUKnKDj'
+		if not os.path.exists(celeb_mapping_destination):
+			download_file_from_google_drive(celeb_mapping_file_id, celeb_mapping_destination)
 
-	celeb_ann_id = '1-3Wb7fiINbrk9FSagTxjLdSjp7KzrMp7'
-	if not os.path.exists(celeb_ann_destination):
-		download_file_from_google_drive(celeb_ann_id, celeb_ann_destination)
+	if ann_filepath is None:
+		ann_filepath = celeb_ann_destination
+		celeb_ann_id = '1-3Wb7fiINbrk9FSagTxjLdSjp7KzrMp7'
+		if not os.path.exists(celeb_ann_destination):
+			download_file_from_google_drive(celeb_ann_id, celeb_ann_destination)
 	# image_path = 'celeb_images/sample_images/sample_image_multi.jpg'
 	img = cv2.imread(image_path)
 

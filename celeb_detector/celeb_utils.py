@@ -1,4 +1,6 @@
 import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
+import tensorflow as tf
 import matplotlib.pyplot as plt
 import json
 import math
@@ -10,8 +12,8 @@ from PIL import Image
 from numpy import asarray
 import numpy as np
 import cv2
-import ipywidgets as widgets
-from IPython.display import display
+# import ipywidgets as widgets
+# from IPython.display import display
 import io
 import matplotlib.pyplot as plt
 import imutils
