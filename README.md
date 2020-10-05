@@ -3,6 +3,8 @@ Model to recognize celebrities using a face matching algorithm.
 
 Model is based on a dataset of around 6000 images of 60 celebrities (100 each).
 
+Refer [this](https://celeb-recognition.readthedocs.io/en/main/) for detailed documentation.
+
 ## Basic working of the algorithm includes the following:
 - Face detection is done using MTCNN face detection model.
 
