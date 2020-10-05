@@ -25,14 +25,19 @@ img = cv2.imread(image_path)
 
 from celeb_utils.celeb_utils import get_celeb_prediction
 pred, img = get_celeb_prediction(img)
-os.makedirs('celeb_output', exist_ok=True)
-out_im_path = 'celeb_output/image_output.jpg'
-cv2.imwrite(out_im_path, img)
-print("Output image saved at {}".format(out_im_path))
+if pred is not None:
+	os.makedirs('celeb_output', exist_ok=True)
+	out_im_path = 'celeb_output/image_output.jpg'
+	cv2.imwrite(out_im_path, img)
+	print("Output image saved at {}".format(out_im_path))
 
-print("Found celebrities:")
-for c in pred:
-	if c["celeb_name"].lower() !="unknown":
-		print(c["celeb_name"])
+	print("Found celebrities:")
+	for c in pred:
+		if c["celeb_name"].lower() !="unknown":
+			print(c["celeb_name"])
 
-print("\nOverall output:\n",pred)
+	print("\nOverall output:\n",pred)
+	return pred
+else:
+	print("No faces detected in the image")
+	return None

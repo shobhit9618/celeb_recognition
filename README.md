@@ -29,10 +29,11 @@ Model is based on a dataset of around 6000 images of 60 celebrities (100 each).
 ### Using pip pakcage
 - For using my model for predictions, use the following lines of code after installation:
     ```python
-    import celeb_detector
+    import celeb_detector # on running for the first time, this will download vggface model
     img_path = 'sample_image.jpg'
-    celeb_detector.celeb_recognition(img_path)
+    celeb_detector.celeb_recognition(img_path) # on running for the first time, 2 files (celeb_mapping.json and celeb_index_60.ann) will downloaded to the home directory
     ```
+    This returns a list of dictionaries, each dictionary contains bbox coordinates, celeb name and confidence for each face detected in the image (celeb name will be unknown if no matching face detected).
 
 - For using your own custom model, also provide path to json and ann files as shown below:
     ```python
@@ -43,7 +44,7 @@ Model is based on a dataset of around 6000 images of 60 celebrities (100 each).
     celeb_detector.celeb_recognition(img_path, ann_path, celeb_map)
     ```
 
-- For creating your own model (refer [this](#create-your-own-celeb-model) for guide on creating directory structure) and use as follows:
+- For creating your own model (refer [this](#create-your-own-celeb-model) for more details on usage) and run as follows:
     ```python
     import celeb_detector
     folder_path = 'celeb_images'
