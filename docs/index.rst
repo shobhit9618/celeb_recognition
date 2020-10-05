@@ -1,5 +1,5 @@
 Celebrity Recognition
-====================================
+=====================
 
 Model to recognize celebrities using a face matching algorithm.
 
@@ -28,31 +28,52 @@ PyPI package
 ====================================
 
 Installation
-~~~~~~~~~~~~
+------------
 
 -  To ensure you have all the required additional packages, run
    ``pip install -r requirements.py`` first.
 -  To install pip package, run:
-   ``bash     # pip release version     pip install celeb-detector     # also install additional dependencies with this (if not installed via requirements.txt file)     pip install annoy keras-vggface keras-applications     # Directly from repo     pip install git+https://github.com/shobhit9618/celeb_recognition.git``
+   ``bash     
+   # pip release version     
+   pip install celeb-detector   
+   # also install additional dependencies with this (if not installed via 
+   requirements.txt file)     
+   pip install annoy keras-vggface keras-applications     
+   # Directly from repo     
+   pip install git+https://github.com/shobhit9618/celeb_recognition.git``
 
 Using pip pakcage
-~~~~~~~~~~~~~~~~~
+-----------------
 
 -  For using my model for predictions, use the following lines of code
    after installation:
-   ``python     import celeb_detector # on running for the first time, this will download vggface model     img_path = 'sample_image.jpg'     celeb_detector.celeb_recognition(img_path) # on running for the first time, 2 files (celeb_mapping.json and celeb_index_60.ann) will downloaded to the home directory``
+   ``python     
+   import celeb_detector # on running for the first time, this will 
+   download vggface model     
+   img_path = 'sample_image.jpg'     
+   # on running for the first time, 2 files (celeb_mapping.json and 
+   celeb_index_60.ann) will downloaded to the home directory
+   celeb_detector.celeb_recognition(img_path)``
    This returns a list of dictionaries, each dictionary contains bbox
    coordinates, celeb name and confidence for each face detected in the
    image (celeb name will be unknown if no matching face detected).
 
 -  For using your own custom model, also provide path to json and ann
    files as shown below:
-   ``python     import celeb_detector     img_path = 'sample_image.jpg'     ann_path = 'sample_index.ann'     celeb_map = 'sample_mapping.json'     celeb_detector.celeb_recognition(img_path, ann_path, celeb_map)``
+   ``python     
+   import celeb_detector     
+   img_path = 'sample_image.jpg'     
+   ann_path = 'sample_index.ann'     
+   celeb_map = 'sample_mapping.json'     
+   celeb_detector.celeb_recognition(img_path, ann_path, celeb_map)``
 
 -  For creating your own model (refer
    `this <#create-your-own-celeb-model>`__ for more details on usage)
    and run as follows:
-   ``python     import celeb_detector     folder_path = 'celeb_images'     celeb_detector.create_celeb_model(folder_path)``
+   ``python     
+   import celeb_detector     
+   folder_path = 'celeb_images'     
+   celeb_detector.create_celeb_model(folder_path)``
 
 -  NOTE: pip package is unstable as of now, it is recommended to use
    python files from the repo for creating your model and making
@@ -62,7 +83,18 @@ Create your own celeb model
 ====================================
 
 -  Create a dataset of celebs in the following directory structure:
-   ``bash     celeb_images/         celeb-a/             celeb-a_1.jpg             celeb-a_2.jpg             ...         celeb-b/             celeb-b_1.jpg             celeb-b_1.jpg             ...         ...``
+   ``bash     
+   celeb_images/         
+   		celeb-a/             
+   			celeb-a_1.jpg             
+   			celeb-a_2.jpg             
+   			...         
+		celeb-b/             
+			celeb-b_1.jpg             
+			celeb-b_1.jpg             
+			...         
+		...
+		``
 -  Each folder name will be considered as the corresponding celeb name
    for the model (WARNING: Do not provide any special characters or
    spaces in the names).
@@ -72,7 +104,7 @@ Create your own celeb model
 -  Provide path to the dataset folder (for example, ``celeb_images``
    folder) in the `create\_celeb\_model.py <create_celeb_model.py>`__
    file.
--  Run `create\_celeb\_model.py <create_celeb_model.py>`__ file.
+-  Run create_celeb_model.py file.
 -  Upon successful completion of the code, we get ``celeb_mapping.json``
    (for storing indexes vs celeb names), ``celeb_index.ann`` (ann file
    for searching encodings) and ``celeb_name_encoding.pkl`` files (for
@@ -84,24 +116,22 @@ Model predictions in jupyter
 ====================================
 
 -  Provide paths to ``celeb_mapping.json`` and ``celeb_index.ann`` files
-   in `celeb\_recognition.ipynb <celeb_recognition.ipynb>`__ file. If
+   in celeb_recognition.ipynb file. If
    you want to try my model, ignore this step.
--  Run all the cells in the
-   `celeb\_recognition.ipynb <celeb_recognition.ipynb>`__ file, the
+-  Run all the cells in the celeb_recognition.ipynb file, the
    final cell will provide widgets for uploading images and making
    predictions (this will also download the necessary model files).
--  NOTE: `celeb\_recognition.ipynb <celeb_recognition.ipynb>`__ is a
-   standalone file and does not require any other files from the repo
+-  NOTE: celeb_recognition.ipynb is a standalone file and does not 
+   require any other files from the repo
    for running.
 
 Model predictions in python
 ====================================
 
 -  Provide paths to ``celeb_mapping.json`` and ``celeb_index.ann`` files
-   in `celeb\_recognition.py <celeb_recognition.py>`__ and
-   `celeb\_utils.py <celeb_utils/celeb_utils.py>`__ files. If you want
-   to try my model, ignore this step.
--  Run `celeb\_recognition.py <celeb_recognition.py>`__ file, provide
+   in celeb_recognition.py and celeb_utils/celeb_utils.py files. If you 
+   want to try my model, ignore this step.
+-  Run celeb_recognition.py file, provide
    path to image in the file.
 -  Output includes a list of the identified faces, bounding boxes and
    the predicted celeb name (unknown if not found).
