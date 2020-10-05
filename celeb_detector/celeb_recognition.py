@@ -9,7 +9,7 @@ home = expanduser("~")
 celeb_ann_destination = os.path.join(home,'celeb_index_60.ann')
 celeb_mapping_destination = os.path.join(home,'celeb_mapping.json')
 # provide path to image for prediction
-def celeb_recognition(image_path, ann_filepath=None, celeb_mapping_path = None):
+def celeb_recognition(image_path, ann_filepath=None, celeb_mapping_path = None, save_img_output=False):
 	
 	if celeb_mapping_path is None:
 		celeb_mapping_path = celeb_mapping_destination
@@ -26,15 +26,22 @@ def celeb_recognition(image_path, ann_filepath=None, celeb_mapping_path = None):
 	img = cv2.imread(image_path)
 
 	from celeb_detector.celeb_utils import get_celeb_prediction
-	pred, img = get_celeb_prediction(img, ann_filepath, celeb_mapping_path)
-	os.makedirs('celeb_output', exist_ok=True)
-	out_im_path = 'celeb_output/image_output.jpg'
-	cv2.imwrite(out_im_path, img)
-	print("Output image saved at {}".format(out_im_path))
+	pred, img_out = get_celeb_prediction(img, ann_filepath, celeb_mapping_path)
+	if pred is not None:
+		if save_img_output:
+			os.makedirs('celeb_output', exist_ok=True)
+			out_im_path = 'celeb_output/image_output.jpg'
+			cv2.imwrite(out_im_path, img_out)
+			print("Output image saved at {}".format(out_im_path))
 
-	print("Found celebrities:")
-	for c in pred:
-		if c["celeb_name"].lower() !="unknown":
-			print(c["celeb_name"])
+		print("Found celebrities:")
+		for c in pred:
+			if c["celeb_name"].lower() !="unknown":
+				print(c["celeb_name"])
 
-	print("\nOverall output:\n",pred)
+		print("\nOverall output:\n",pred)
+		return pred
+
+	else:
+		print("No faces detected in the image")
+		return None
