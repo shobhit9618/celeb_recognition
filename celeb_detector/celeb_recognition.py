@@ -6,6 +6,7 @@ from PIL import Image
 from celeb_detector.download_gdrive import download_file_from_google_drive
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
 import tensorflow as tf
+import numpy as np
 
 home = expanduser("~")
 celeb_ann_destination = os.path.join(home,'celeb_index_60.ann')
