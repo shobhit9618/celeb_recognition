@@ -20,6 +20,8 @@ Model is based on a dataset of around 6000 images of 60 celebrities (100 each).
     ```bash
     # pip release version
     pip install celeb-detector
+    # also install additional dependencies with this (if not installed via requirements.txt file)
+    pip install annoy keras-vggface keras-applications
     # Directly from repo
     pip install git+https://github.com/shobhit9618/celeb_recognition.git
     ```
