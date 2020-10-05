@@ -1,7 +1,9 @@
 import os
 from os.path import expanduser
 from PIL import Image
+import requests
 import cv2
+import numpy as np
 from IPython.display import display
 from celeb_utils.download_gdrive import download_file_from_google_drive
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
@@ -20,8 +22,10 @@ if not os.path.exists(celeb_ann_destination):
 	download_file_from_google_drive(celeb_ann_id, celeb_ann_destination)
 
 # provide path to image for prediction
-image_path = 'celeb_images/sample_images/sample_image_multi.jpg'
-img = cv2.imread(image_path)
+url = '' # provide image url here
+img = cv2.cvtColor(np.array(Image.open(requests.get(url, stream=True).raw)), cv2.COLOR_BGR2RGB)
+# image_path = 'celeb_images/sample_images/sample_image_multi.jpg'
+# img = cv2.imread(image_path)
 
 from celeb_utils.celeb_utils import get_celeb_prediction
 pred, img = get_celeb_prediction(img)
@@ -37,7 +41,5 @@ if pred is not None:
 			print(c["celeb_name"])
 
 	print("\nOverall output:\n",pred)
-	return pred
 else:
 	print("No faces detected in the image")
-	return None

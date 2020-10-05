@@ -1,6 +1,8 @@
 import os
 from os.path import expanduser
+import requests
 import cv2
+from PIL import Image
 from celeb_detector.download_gdrive import download_file_from_google_drive
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
 import tensorflow as tf
@@ -9,7 +11,7 @@ home = expanduser("~")
 celeb_ann_destination = os.path.join(home,'celeb_index_60.ann')
 celeb_mapping_destination = os.path.join(home,'celeb_mapping.json')
 # provide path to image for prediction
-def celeb_recognition(image_path, ann_filepath=None, celeb_mapping_path = None, save_img_output=False):
+def celeb_recognition(image_path, ann_filepath=None, celeb_mapping_path = None, save_img_output=False, url=False):
 	
 	if celeb_mapping_path is None:
 		celeb_mapping_path = celeb_mapping_destination
@@ -23,7 +25,10 @@ def celeb_recognition(image_path, ann_filepath=None, celeb_mapping_path = None, 
 		if not os.path.exists(celeb_ann_destination):
 			download_file_from_google_drive(celeb_ann_id, celeb_ann_destination)
 	# image_path = 'celeb_images/sample_images/sample_image_multi.jpg'
-	img = cv2.imread(image_path)
+	if url:
+		img = cv2.cvtColor(np.array(Image.open(requests.get(image_path, stream=True).raw)), cv2.COLOR_BGR2RGB)
+	else:
+		img = cv2.imread(image_path)
 
 	from celeb_detector.celeb_utils import get_celeb_prediction
 	pred, img_out = get_celeb_prediction(img, ann_filepath, celeb_mapping_path)
