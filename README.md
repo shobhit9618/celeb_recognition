@@ -13,11 +13,11 @@ Refer [this](https://celeb-recognition.readthedocs.io/en/main/) for detailed doc
 - Face matching is done using [annoy](https://github.com/spotify/annoy) library (spotify).
 
 ## Installing dependencies
-- Run `pip install -r requirements.py` to install all the dependencies (preferably in a virtual environment).
+- Run `pip install -r requirements.txt` to install all the dependencies (preferably in a virtual environment).
 
 ## PyPI package
 ### Installation
-- To ensure you have all the required additional packages, run `pip install -r requirements.py` first.
+- To ensure you have all the required additional packages, run `pip install -r requirements.txt` first.
 - To install pip package, run:
     ```bash
     # pip release version
@@ -34,7 +34,8 @@ Refer [this](https://celeb-recognition.readthedocs.io/en/main/) for detailed doc
     import celeb_detector # on running for the first time, this will download vggface model
     img_path = 'sample_image.jpg'
     celeb_detector.celeb_recognition(img_path) # on running for the first time, 2 files (celeb_mapping.json and celeb_index_60.ann) will downloaded to the home directory
-    # if you want to use an image url, just add provide url and add url=True
+    
+    # if you want to use an image url, just provide the url and add url=True
     url = 'https://sample/sample_image_url.jpg'
     celeb_detector.celeb_recognition(url, url=True)
     ```
