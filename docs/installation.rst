@@ -1,13 +1,13 @@
 Installation
 ============
 
--  Run ``pip install -r requirements.py`` to install all the
+-  Run ``pip install -r requirements.txt`` to install all the
    dependencies (preferably in a virtual environment).
 
 PyPI package
 ------------
 
-- To ensure you have all the required additional packages, run ``pip install -r requirements.py`` first.
+- To ensure you have all the required additional packages, run ``pip install -r requirements.txt`` first.
 - To install pip package, run::
 
    	# pip release version    

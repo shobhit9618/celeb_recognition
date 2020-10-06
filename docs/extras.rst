@@ -1,12 +1,8 @@
-Sample image output
-====================================
+Additional ways to use
+======================
 
-.. figure:: https://drive.google.com/uc?export=view&id=1W4P0PPLjr0BHDkj2CzLgFGpOYn4MF1Ck
-   :alt: Image
-
-   Image
 Binder
-====================================
+------
 
 You can run a binder application by clicking the following link:
 
@@ -17,7 +13,7 @@ for image upload and celeb prediction) by clicking
 `here <https://mybinder.org/v2/gh/shobhit9618/celeb_recognition/main?urlpath=%2Fvoila%2Frender%2Fceleb_recognition.ipynb>`__.
 
 Google Colab
-====================================
+------------
 
 To open and run celeb_recognition.ipynb file in google colab, click the following link:
 
