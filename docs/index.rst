@@ -39,6 +39,14 @@ Installation
    	pip install annoy keras-vggface keras-applications   
    	# Directly from repo     
    	pip install git+https://github.com/shobhit9618/celeb_recognition.git
+	
+- If you are using conda on linux or ubuntu, you can use the following commands to create and use a new environment called celeb-detector::
+
+	conda env create shobhit9618/celeb-detector
+	conda activate celeb-detector
+This will install all the required dependencies. To ensure you are using the latest version of the package, also run (inside the environment)::
+
+	pip install --upgrade celeb-detector
    
 
 Using pip pakcage
