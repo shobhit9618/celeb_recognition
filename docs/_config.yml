@@ -1,1 +1,4 @@
 theme: jekyll-theme-slate
+imclude:
+  - index.md
+  - README.md
