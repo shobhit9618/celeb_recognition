@@ -58,8 +58,7 @@ Using pip pakcage
 	   import celeb_detector # on running for the first time, this will 
 	   download vggface model     
 	   img_path = 'sample_image.jpg'     
-	   celeb_detector.celeb_recognition(img_path) # on running for the first time, 2 files (celeb_mapping.json and 
-	   celeb_index_60.ann) will downloaded to the home directory
+	   celeb_detector.celeb_recognition(img_path) # on running for the first time, 2 files (celeb_mapping.json and celeb_index_60.ann) will be downloaded to the home directory
 	   
 	   # if you want to use an image url, just provide the url and add url=True
 	   url = 'https://sample/sample_image_url.jpg'
