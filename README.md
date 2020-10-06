@@ -66,8 +66,6 @@ Refer [this](https://celeb-recognition.readthedocs.io/en/main/) for detailed doc
     celeb_detector.create_celeb_model(folder_path)
     ```
 
-- NOTE: pip package is unstable as of now, it is recommended to use python files from the repo for creating your model and making predictions. Details for the same are provided below.
-
 ## Create your own celeb model
 - Create a dataset of celebs in the following directory structure:
     ```bash
