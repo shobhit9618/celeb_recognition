@@ -1,4 +1,4 @@
-# Celebrity Recognition [![PyPI version](https://badge.fury.io/py/celeb-detector.svg)](https://badge.fury.io/py/celeb-detector) [![Documentation Status](https://readthedocs.org/projects/celeb-recognition/badge/?version=main)](https://celeb-recognition.readthedocs.io/en/main/)
+# Celebrity Recognition [![PyPI version](https://badge.fury.io/py/celeb-detector.svg)](https://badge.fury.io/py/celeb-detector) [![Documentation Status](https://readthedocs.org/projects/celeb-recognition/badge/?version=main)](https://celeb-recognition.readthedocs.io/en/main/) [![Anaconda-Server Badge](https://anaconda.org/shobhit9618/celeb-detector/badges/installer/env.svg)](https://anaconda.org/shobhit9618/celeb-detector)
 Model to recognize celebrities using a face matching algorithm.
 
 Model is based on a dataset of around 6000 images of 60 celebrities (100 each).
