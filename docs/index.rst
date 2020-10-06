@@ -52,6 +52,10 @@ Using pip pakcage
 	   img_path = 'sample_image.jpg'     
 	   celeb_detector.celeb_recognition(img_path) # on running for the first time, 2 files (celeb_mapping.json and 
 	   celeb_index_60.ann) will downloaded to the home directory
+	   
+	   # if you want to use an image url, just provide the url and add url=True
+	   url = 'https://sample/sample_image_url.jpg'
+	   celeb_detector.celeb_recognition(url, url=True)
    This returns a list of dictionaries, each dictionary contains bbox
    coordinates, celeb name and confidence for each face detected in the
    image (celeb name will be unknown if no matching face detected).
@@ -64,16 +68,11 @@ Using pip pakcage
 	   celeb_map = 'sample_mapping.json'     
 	   celeb_detector.celeb_recognition(img_path, ann_path, celeb_map)
 
--  For creating your own model (refer
-   `this <#create-your-own-celeb-model>`__ for more details on usage)
+-  For creating your own model (refer next section for more details on usage)
    and run as follows::
 	   import celeb_detector     
 	   folder_path = 'celeb_images'     
 	   celeb_detector.create_celeb_model(folder_path)
-
--  NOTE: pip package is unstable as of now, it is recommended to use
-   python files from the repo for creating your model and making
-   predictions. Details for the same are provided below.
 
 Create your own celeb model
 ====================================
