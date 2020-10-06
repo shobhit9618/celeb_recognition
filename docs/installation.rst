@@ -1,13 +1,10 @@
-Installing dependencies
-====================================
+Installation
+============
 
 -  Run ``pip install -r requirements.py`` to install all the
    dependencies (preferably in a virtual environment).
 
 PyPI package
-====================================
-
-Installation
 ------------
 
 - To ensure you have all the required additional packages, run ``pip install -r requirements.py`` first.
@@ -29,34 +26,4 @@ This will install all the required dependencies. To ensure you are using the lat
 
 	pip install --upgrade celeb-detector
 
-Using pip pakcage
------------------
 
--  For using my model for predictions, use the following lines of code
-   after installation::
-   
-      import celeb_detector # on running for the first time, this will 
-      download vggface model     
-      img_path = 'sample_image.jpg'     
-      celeb_detector.celeb_recognition(img_path) # on running for the first time, 2 files (celeb_mapping.json and celeb_index_60.ann) will be downloaded to the home directory
-      
-      # if you want to use an image url, just provide the url and add url=True
-      url = 'https://sample/sample_image_url.jpg'
-      celeb_detector.celeb_recognition(url, url=True)
-   This returns a list of dictionaries, each dictionary contains bbox
-   coordinates, celeb name and confidence for each face detected in the
-   image (celeb name will be unknown if no matching face detected).
-
--  For using your own custom model, also provide path to json and ann
-   files as shown below::    
-      import celeb_detector     
-      img_path = 'sample_image.jpg'     
-      ann_path = 'sample_index.ann'     
-      celeb_map = 'sample_mapping.json'     
-      celeb_detector.celeb_recognition(img_path, ann_path, celeb_map)
-
--  For creating your own model (refer next section for more details on usage)
-   and run as follows::
-      import celeb_detector     
-      folder_path = 'celeb_images'     
-      celeb_detector.create_celeb_model(folder_path)
