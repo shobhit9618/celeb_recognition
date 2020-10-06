@@ -6,5 +6,9 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-   README
+   introduction
    installation
+   pypi_package
+   create_model
+   prediction
+   extras
