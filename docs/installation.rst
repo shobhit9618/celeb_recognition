@@ -26,6 +26,7 @@ Installation
 	conda activate celeb-detector
 
 This will install all the required dependencies. To ensure you are using the latest version of the package, also run (inside the environment)::
+
 	pip install --upgrade celeb-detector
 
 Using pip pakcage
