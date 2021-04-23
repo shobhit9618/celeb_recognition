@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="celeb_detector",
-    version="0.0.20",
+    version="0.0.22",
     author="Shobhit Gupta",
     author_email="shobhit9618@gmail.com",
     description="Model to recognize celebrities using a face matching algorithm",
@@ -13,6 +13,11 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/shobhit9618/celeb_recognition",
     packages=setuptools.find_packages(),
+    entry_points={
+        'console_scripts': [
+            'celeb_detector=celeb_detector.celeb_recognition:main'
+        ]
+    },
     install_requires = ['tensorflow',
                         'mtcnn',
                         'keras>=2.4.3',
