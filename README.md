@@ -41,12 +41,8 @@ You can also read my article on medium [here](https://medium.com/@shobhitgupta/c
 - For using my model for predictions, use the following lines of code after installation:
     ```python
     import celeb_detector # on running for the first time, this will download vggface model
-    img_path = 'sample_image.jpg'
-    celeb_detector.celeb_recognition(img_path) # on running for the first time, 2 files (celeb_mapping.json and celeb_index_60.ann) will downloaded to the home directory
-    
-    # if you want to use an image url, just provide the url and add url=True
-    url = 'https://sample/sample_image_url.jpg'
-    celeb_detector.celeb_recognition(url, url=True)
+    img_path = 'sample_image.jpg' # this supports both local path and web url like https://sample/sample_image_url.jpg
+    celeb_detector.celeb_recognition(img_path) # on running for the first time, 2 files (celeb_mapping.json and celeb_index_60.ann) will downloaded to your home directory
     ```
     This returns a list of dictionaries, each dictionary contains bbox coordinates, celeb name and confidence for each face detected in the image (celeb name will be unknown if no matching face detected).
 
