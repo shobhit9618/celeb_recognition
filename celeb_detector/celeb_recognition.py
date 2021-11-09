@@ -29,6 +29,7 @@ def celeb_recognition(image_path, ann_filepath=None, celeb_mapping_path = None, 
     try:
         img = cv2.cvtColor(np.array(Image.open(requests.get(image_path, stream=True).raw)), cv2.COLOR_BGR2RGB)
     except Exception as e:
+        print(e)
         if not os.path.exists(image_path):
             raise FileNotFoundError("Invalid path: {0}".format(image_path))
         img = cv2.imread(image_path)
