@@ -59,10 +59,9 @@ def celeb_recognition(image_path, ann_filepath=None, celeb_mapping_path = None, 
 @click.option('--image_path', required=True, help='Path/url of image you want to check')
 @click.option('--ann_filepath', default=None, help='Path to ann file, if using custom model, else ignore')
 @click.option('--celeb_mapping_path', default=None, help='Path to celeb mapper file, if using custom file, else ignore')
-@click.option('--url', default=True, type=bool, help='Set to false if you want to detect celeb on local image, default true')
 
-def main(image_path, ann_filepath, celeb_mapping_path, url):
-    celeb_recognition(image_path, ann_filepath, celeb_mapping_path, False, url)
+def main(image_path, ann_filepath, celeb_mapping_path):
+    celeb_recognition(image_path, ann_filepath, celeb_mapping_path, False)
 
 
 if __name__ == "__main__":
