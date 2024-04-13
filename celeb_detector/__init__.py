@@ -1,2 +1,0 @@
-from celeb_detector.create_celeb_model import create_celeb_model
-from celeb_detector.celeb_recognition import celeb_recognition

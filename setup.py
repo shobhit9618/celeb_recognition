@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="celeb_detector",
-    version="0.0.24",
+    version="0.0.25",
     author="Shobhit Gupta",
     author_email="shobhit9618@gmail.com",
     description="Model to recognize celebrities using a face matching algorithm",
@@ -18,14 +18,17 @@ setuptools.setup(
             'celeb_detector=celeb_detector.celeb_recognition:main'
         ]
     },
-    install_requires = ['tensorflow',
-                        'mtcnn',
-                        'keras>=2.4.3',
+    install_requires = ['annoy',
+                        'face_recognition',
                         'imutils',
-                        'opencv-python>=4.0',
+                        'opencv-python',
                         'matplotlib',
                         'numpy',
-                        'tqdm'],
+                        'tqdm',
+                        'pillow',
+                        'torch',
+                        'onnx2torch',
+                        'requests'],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",

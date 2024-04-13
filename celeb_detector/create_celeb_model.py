@@ -1,34 +1,37 @@
 import os
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
-import tensorflow as tf
-from keras_vggface.vggface import VGGFace
-from keras_vggface.utils import preprocess_input
-from mtcnn.mtcnn import MTCNN
 import cv2
-from PIL import Image
-from matplotlib import pyplot
-from numpy import asarray
 import numpy as np
-from os import listdir
 import pickle
 import json
 from annoy import AnnoyIndex
 from tqdm import tqdm
-from celeb_detector.create_model_utils import get_encoding, save_json 
+import string, random
+from celeb_detector.celeb_prediction_main import CelebRecognition
 
-def create_celeb_model(base_url):
+celeb_recog = CelebRecognition()
+
+def generate_random_string(length):
+    pool = string.ascii_letters + string.digits
+    return ''.join([random.choice(pool) for _ in range(length)])
+
+def save_json(celeb_mapping):
+	with open(f"celeb_mapping_{generate_random_string(5)}.json", "w") as outfile:  
+		json.dump(celeb_mapping, outfile)
+
+def create_celeb_model(base_path):
 	ann_index = AnnoyIndex(2048, 'angular')
 	os.makedirs('celeb_encodings', exist_ok=True)
 
 	celeb_mapping = {}
 	c = 0
 	print("Starting face detection and encoding creation")
-	for folder in os.listdir(base_url):
+	for folder in os.listdir(base_path):
 		celeb_encoding = {}
 		celeb_mapping[folder] = []
-		for image in tqdm(listdir(base_url + '/' + folder)):
+		for image_name in tqdm(os.listdir(os.path.join(base_path, folder))):
+			image = cv2.imread(os.path.join(base_path, folder, image_name))
 			try:
-				encoding = get_encoding(os.path.join(base_url, folder, image))
+				encoding = celeb_recog.get_encoding(os.path.join(base_path, folder, image))
 			except Exception as e:
 				print(e)
 				continue
@@ -52,3 +55,6 @@ def create_celeb_model(base_url):
 		print("Ann index saved successfully")
 	else:
 		print("Error in saving ann index")
+
+if __name__ == "__main__":
+	create_model = create_celeb_model("")

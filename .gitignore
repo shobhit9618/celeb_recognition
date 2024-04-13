@@ -1,9 +1,9 @@
 .ipynb_checkpoints
-*.ann
 *.pkl
 celeb_utils/__pycache__/
-*.json
 __pycache__/
 build/
 *.egg-info/
 dist/
+celeb_output/
+models/
