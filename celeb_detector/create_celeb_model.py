@@ -31,7 +31,7 @@ def create_celeb_model(base_path):
 		for image_name in tqdm(os.listdir(os.path.join(base_path, folder))):
 			image = cv2.imread(os.path.join(base_path, folder, image_name))
 			try:
-				encoding = celeb_recog.get_encoding(os.path.join(base_path, folder, image))
+				encoding = celeb_recog.get_encoding(image)
 			except Exception as e:
 				print(e)
 				continue
