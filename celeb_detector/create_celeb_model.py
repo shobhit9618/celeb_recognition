@@ -40,11 +40,9 @@ def create_celeb_model(base_path):
                     celeb_encoding[c] = encoding.squeeze()
                     celeb_mapping[folder].append(c)
                     ann_index.add_item(c, encoding.squeeze())
-            save_json(celeb_mapping)
             with open(f"celeb_encodings/{folder}_encoding.pkl", "wb") as f:
                 pickle.dump(celeb_encoding, f)
             celeb_encoding.clear()
-    save_json(celeb_mapping)
     print("Encoding and mapping files saved successfully")
     print("Building ann index...")
     ann_index.build(1000)
@@ -53,6 +51,8 @@ def create_celeb_model(base_path):
         print("Ann index saved successfully")
     else:
         print("Error in saving ann index")
+
+    save_json(celeb_mapping)
 
 if __name__ == "__main__":
 	create_model = create_celeb_model("")
