@@ -11,36 +11,42 @@ import imutils
 
 class CelebRecognition:
 	def __init__(self):
+		# Cache the celeb_mapping to avoid repeated file reads
+		self._celeb_mapping = None
+		
 		file_path = pathlib.Path(__file__).parent.absolute()
 		self.celeb_mapping_filepath = f"{file_path}/models/celeb_mapping_117.json"
 		celeb_index_annpath = f"{file_path}/models/celeb_index_117.ann"
 		vggface_modelpath = f"{file_path}/models/vggface_resnet50.pt"
 
-		self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-		if torch.backends.mps.is_available():
-			self.device = torch.device('mps')
+		# Set device once during initialization
+		self.device = torch.device('mps' if torch.backends.mps.is_available() 
+								 else 'cuda' if torch.cuda.is_available() 
+								 else 'cpu')
 
 		self.encoder_model = torch.load(vggface_modelpath).to(self.device).eval()
 		self.ann_index = AnnoyIndex(2048, 'angular')
-		_ = self.ann_index.load(celeb_index_annpath)
+		self.ann_index.load(celeb_index_annpath)
 
-	def get_celeb_mapping(self):
-		with open(self.celeb_mapping_filepath) as json_file:
-			celeb_mapping_temp = json.load(json_file)
-		celeb_mapping = {}
-		for key, value_list in celeb_mapping_temp.items():
-			for each_id in value_list:
-				celeb_mapping[each_id] = str(key)
-		return celeb_mapping
+	@property
+	def celeb_mapping(self):
+		# Lazy loading of celeb_mapping
+		if self._celeb_mapping is None:
+			with open(self.celeb_mapping_filepath) as json_file:
+				celeb_mapping_temp = json.load(json_file)
+			self._celeb_mapping = {
+				each_id: str(key)
+				for key, value_list in celeb_mapping_temp.items()
+				for each_id in value_list
+			}
+		return self._celeb_mapping
 
 	def get_celeb_name_from_id(self, result_list, dist_threshold=0.9):
-		id_list = result_list[0]
-		dist_list = result_list[1]
-		celeb_mapping_dict = self.get_celeb_mapping()
-		counts = dict()
+		id_list, dist_list = result_list
+		counts = {}
 		for each_id, each_dist in zip(id_list, dist_list):
 			if each_dist < dist_threshold:
-				output = celeb_mapping_dict.get(each_id)
+				output = self.celeb_mapping.get(each_id)
 				counts[output] = counts.get(output, 0) + 1
 		return counts
 
@@ -56,28 +62,23 @@ class CelebRecognition:
 
 	def get_encoding(self, img):
 		results = face_recognition.face_locations(img)
-		if len(results)>0:
-			encodings = []
-			bbox = []
-			for result in results:
-				y1, x2, y2, x1 = result
-				if x1 <0:
-					x1 = 0
-				if y1 <0:
-					y1 = 0
+		if not results:
+			return None, None
+			
+		encodings = []
+		bbox = []
+		with torch.no_grad():  # Add no_grad context for inference
+			for y1, x2, y2, x1 in results:
+				x1 = max(0, x1)
+				y1 = max(0, y1)
 				face = img[y1:y2, x1:x2]
-				image = Image.fromarray(face)
-				image = image.resize((224,224))
-				face_array = np.asarray(image)
-
-				samples = np.asarray(face_array, 'float32')
-				samples = np.expand_dims(samples, axis=0)
+				image = Image.fromarray(face).resize((224, 224))
+				face_array = np.asarray(image, dtype='float32')
+				samples = np.expand_dims(face_array, axis=0)
 				encoding = self.encoder_model(torch.Tensor(samples).to(self.device))
 				encodings.append(encoding)
 				bbox.append((x1, y1, x2-x1, y2-y1))
-			return encodings, bbox
-		else:
-			return None, None
+		return encodings, bbox
 
 	def get_celeb_prediction(self, img):
 		img = imutils.resize(img, height=1080)

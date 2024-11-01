@@ -23,31 +23,42 @@ def create_celeb_model(base_path):
     os.makedirs('celeb_encodings', exist_ok=True)
     celeb_mapping = {}
     celeb_encoding = {}
-    c = 0
+    counter = 0
+    
     print("Starting face detection and encoding creation")
+    
+    # Process images in batches
+    batch_size = 32
     for folder in os.listdir(base_path):
         celeb_mapping[folder] = []
-        for image_name in tqdm(os.listdir(os.path.join(base_path, folder))):
-            image = cv2.imread(os.path.join(base_path, folder, image_name))
-            try:
-                encodings, bboxes = celeb_recog.get_encoding(image)
-            except Exception as e:
-                print(e)
-                continue
-            if encodings is not None:
-                for encoding, bbox in zip(encodings, bboxes):
-                    c += 1
-                    celeb_encoding[c] = encoding.squeeze()
-                    celeb_mapping[folder].append(c)
-                    ann_index.add_item(c, encoding.squeeze())
-            with open(f"celeb_encodings/{folder}_encoding.pkl", "wb") as f:
-                pickle.dump(celeb_encoding, f)
-            celeb_encoding.clear()
-    print("Encoding and mapping files saved successfully")
+        image_paths = [os.path.join(base_path, folder, img) 
+                      for img in os.listdir(os.path.join(base_path, folder))]
+        
+        for i in tqdm(range(0, len(image_paths), batch_size)):
+            batch_paths = image_paths[i:i + batch_size]
+            for image_path in batch_paths:
+                try:
+                    image = cv2.imread(image_path)
+                    encodings, bboxes = celeb_recog.get_encoding(image)
+                    if encodings:
+                        for encoding, bbox in zip(encodings, bboxes):
+                            counter += 1
+                            celeb_encoding[counter] = encoding.squeeze()
+                            celeb_mapping[folder].append(counter)
+                            ann_index.add_item(counter, encoding.squeeze())
+                except Exception as e:
+                    print(f"Error processing {image_path}: {e}")
+                    continue
+            
+            # Save batch results
+            if celeb_encoding:
+                with open(f"celeb_encodings/{folder}_encoding_{i}.pkl", "wb") as f:
+                    pickle.dump(celeb_encoding, f)
+                celeb_encoding.clear()
+
     print("Building ann index...")
-    ann_index.build(1000)
-    x = ann_index.save("celeb_index.ann")
-    if x:
+    ann_index.build(1000, n_jobs=-1)  # Use all available cores
+    if ann_index.save("celeb_index.ann"):
         print("Ann index saved successfully")
     else:
         print("Error in saving ann index")

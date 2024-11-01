@@ -18,17 +18,20 @@ setuptools.setup(
             'celeb_detector=celeb_detector.celeb_recognition:main'
         ]
     },
-    install_requires = ['annoy',
-                        'face_recognition',
-                        'imutils',
-                        'opencv-python',
-                        'matplotlib',
-                        'numpy',
-                        'tqdm',
-                        'pillow',
-                        'torch',
-                        'onnx2torch',
-                        'requests'],
+    install_requires=[
+        'annoy',
+        'face_recognition',
+        'imutils',
+        'opencv-python',
+        'matplotlib',
+        'numpy',
+        'tqdm',
+        'pillow',
+        'torch',
+        'onnx2torch',
+        'requests',
+        'click'
+    ],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
